@@ -28,6 +28,6 @@ public class StreamTaskTest {
         while (i < arrayShuffled.length && telran.util.Arrays.search(arrayGiven, arrayShuffled[i]) != -1) {
             i++;
         }
-        return i == arrayShuffled.length;
+        return i == arrayShuffled.length && arrayShuffled.length == arrayGiven.length;
     }
 }
