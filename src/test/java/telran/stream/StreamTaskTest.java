@@ -1,5 +1,7 @@
 package telran.stream;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -20,7 +22,12 @@ public class StreamTaskTest {
     void assertGivenAndShuffle(int[] arrayGiven) {
         int[] arrayShuffled = new int[arrayGiven.length];
         arrayShuffled = StreamTasks.shuffle(arrayGiven);
+        //some additional check, may be doesn't need
         assertTrue(isAllElemetsMatch(arrayGiven, arrayShuffled));
+        assertFalse(arrayGiven.equals(arrayShuffled));
+        java.util.Arrays.sort(arrayGiven);
+        java.util.Arrays.sort(arrayShuffled);
+        assertArrayEquals(arrayGiven, arrayShuffled);
     }
 
     boolean isAllElemetsMatch(int[] arrayGiven, int[] arrayShuffled) {
