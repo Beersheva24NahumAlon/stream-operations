@@ -18,22 +18,27 @@ public class StreamTaskTest {
         assertGivenAndShuffle(arr3);
         int[] arr4 = { 1, 2, 3, 4, 5, 6 };
         assertGivenAndShuffle(arr4);
+        int[] arr5 = null;
+        assertGivenAndShuffle(arr5);
     }
 
     void assertGivenAndShuffle(int[] arrayGiven) {
-        if (arrayGiven.length > 0) {
-            int[] arrayShuffled = new int[arrayGiven.length];
-            arrayShuffled = StreamTasks.shuffle(arrayGiven);
-            //some additional check, may be doesn't need
-            assertTrue(isAllElemetsMatch(arrayGiven, arrayShuffled));
-            assertFalse(arrayGiven.equals(arrayShuffled));
-            java.util.Arrays.sort(arrayGiven);
-            java.util.Arrays.sort(arrayShuffled);
-            assertArrayEquals(arrayGiven, arrayShuffled);
+        if (arrayGiven == null) {
+            assertThrowsExactly(NullPointerException.class, () -> StreamTasks.shuffle(arrayGiven));
         } else {
-            assertThrowsExactly(IllegalArgumentException.class, () -> StreamTasks.shuffle(arrayGiven));
+            if (arrayGiven.length == 0) {
+                assertThrowsExactly(IllegalArgumentException.class, () -> StreamTasks.shuffle(arrayGiven));
+            } else {
+                int[] arrayShuffled = new int[arrayGiven.length];
+                arrayShuffled = StreamTasks.shuffle(arrayGiven);
+                //some additional check, may be doesn't need
+                assertTrue(isAllElemetsMatch(arrayGiven, arrayShuffled));
+                assertFalse(arrayGiven.equals(arrayShuffled));
+                java.util.Arrays.sort(arrayGiven);
+                java.util.Arrays.sort(arrayShuffled);
+                assertArrayEquals(arrayGiven, arrayShuffled);
+            }
         }
-
     }
 
     boolean isAllElemetsMatch(int[] arrayGiven, int[] arrayShuffled) {
